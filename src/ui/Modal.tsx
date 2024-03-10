@@ -24,6 +24,17 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+  /* width: 100%; */
+
+  /* @media screen and (max-width: 930px) {
+    max-width: 95dvw;
+    width: 95dvw;
+    overflow-x: scroll;
+    -ms-overflow-style: scroll;
+    @media screen and (orientation: portrait) {
+      width: 95vw;
+    }
+  } */
 `;
 
 const Overlay = styled.div`

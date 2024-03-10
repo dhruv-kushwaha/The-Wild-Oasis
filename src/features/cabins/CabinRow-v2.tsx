@@ -77,39 +77,49 @@ function CabinRow({ cabin }: CabinRowProps) {
         <span>&mdash;</span>
       )}
       <div>
+        <button onClick={handleDuplicate} disabled={isCreating}>
+          <HiSquare2Stack />
+        </button>
+
         <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={cabin.id} />
+          {/* Edit Modal */}
+          <Modal.Open opens="edit-cabin-form">
+            <button>
+              <HiPencil />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="edit-cabin-form">
+            <CreateCabinForm cabinToEdit={cabin} />
+          </Modal.Window>
 
-            <Menus.List id={cabin.id}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
-                Duplicate
-              </Menus.Button>
-
-              <Modal.Open opens="edit-cabin-form">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
-
-              <Modal.Open opens="confirm-delete-cabin">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
-
-            {/* Edit Modal */}
-            <Modal.Window name="edit-cabin-form">
-              <CreateCabinForm cabinToEdit={cabin} />
-            </Modal.Window>
-
-            {/* Delete Modal */}
-            <Modal.Window name="confirm-delete-cabin">
-              <ConfirmDelete
-                disabled={isDeleting}
-                resourceName={cabin.name}
-                onConfirm={() => deleteCabin(cabin.id)}
-              />
-            </Modal.Window>
-          </Menus.Menu>
+          {/* Delete Modal */}
+          <Modal.Open opens="confirm-delete-cabin">
+            <button>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="confirm-delete-cabin">
+            <ConfirmDelete
+              disabled={isDeleting}
+              resourceName={cabin.name}
+              onConfirm={() => deleteCabin(cabin.id)}
+            />
+          </Modal.Window>
         </Modal>
+
+        <Menus.Menu>
+          <Menus.Toggle id={cabin.id} />
+
+          <Menus.List id={cabin.id}>
+            <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+              Duplicate
+            </Menus.Button>
+
+            <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+
+            <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
       </div>
     </Table.Row>
   );

@@ -25,6 +25,13 @@ const StyledFormRow = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
+
+  /* @media screen and (max-width: 930px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  } */
 `;
 
 const Label = styled.label`
