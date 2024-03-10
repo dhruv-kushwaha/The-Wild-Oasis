@@ -17,3 +17,11 @@ const StyledSelect = styled.select<StyledSelectProps>`
   font-weight: 500;
   box-shadow: var(--shadow-sm);
 `;
+
+// interface SelectProps {}
+
+// function Select({}: SelectProps) {
+//   return <StyledSelect></StyledSelect>;
+// }
+
+// export default Select;
