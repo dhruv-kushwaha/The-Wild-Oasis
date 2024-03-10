@@ -12,12 +12,12 @@ const StyledTable = styled.div`
 `;
 
 interface CommonRowProps {
-  columns: string;
+  $columns: string;
 }
 
 const CommonRow = styled.div<CommonRowProps>`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -96,7 +96,7 @@ function Table({ columns, children }: TableProps) {
 function Header({ children }: { children: React.ReactNode[] }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="row" columns={columns}>
+    <StyledHeader role="row" $columns={columns}>
       {children}
     </StyledHeader>
   );
@@ -105,7 +105,7 @@ function Header({ children }: { children: React.ReactNode[] }) {
 function Row({ children }: { children: React.ReactNode[] }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledRow role="row" columns={columns}>
+    <StyledRow role="row" $columns={columns}>
       {children}
     </StyledRow>
   );

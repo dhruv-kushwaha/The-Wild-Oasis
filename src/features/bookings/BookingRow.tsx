@@ -6,6 +6,7 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import { TBookingType } from "../../schema/bookingSchema";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -34,24 +35,28 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
+type Status = "unconfirmed" | "checked-in" | "checked-out";
+
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
+    createdAt,
     startDate,
     endDate,
     numNights,
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    guest: { fullName: guestName, email },
+    cabin: { name: cabinName },
   },
+}: {
+  booking: TBookingType;
 }) {
   const statusToTagName = {
     unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+    checkedIn: "green",
+    checkedOut: "silver",
   };
 
   return (
@@ -67,7 +72,7 @@ function BookingRow({
         <span>
           {isToday(new Date(startDate))
             ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
+            : formatDistanceFromNow(startDate as string)}{" "}
           &rarr; {numNights} night stay
         </span>
         <span>
@@ -76,7 +81,9 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>
+        {status.replace("checked", "checked ")}
+      </Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
     </Table.Row>
