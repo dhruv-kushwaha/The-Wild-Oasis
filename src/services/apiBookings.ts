@@ -2,7 +2,7 @@
 // import supabase from "./supabase";
 
 import axios from "axios";
-import getURL from "../utils/globalConstants";
+import getURL, { PAGE_SIZE } from "../utils/globalConstants";
 import { TBookingType } from "../schema/bookingSchema";
 
 const URL = getURL();
@@ -10,13 +10,69 @@ const URL = getURL();
 interface GetAllBookingsResType {
   status: string;
   bookings: TBookingType[];
+  length: number;
+  totalBookings: number;
 }
 
-export async function getAllBookings() {
-  try {
-    const res = await axios.get<GetAllBookingsResType>(`${URL}/bookings`);
+interface sortByType {
+  field: "startDate" | "totalPrice";
+  direction: "asc" | "desc";
+}
 
-    return res.data.bookings;
+export async function getAllBookings({
+  filter,
+  sortBy,
+  page,
+}: {
+  filter: Record<string, string> | null;
+  sortBy: Record<string, string | null>;
+  page: number | null;
+}) {
+  try {
+    // BUILDING THE URL
+
+    // 1) FILTERING
+    // For multiple filters create the filter as an Array of filter objects and loop over them and add them to the query string
+    let url: string = `${URL}/bookings?`;
+    if (filter !== null) {
+      url += `
+            ${filter?.field}
+            ${
+              filter.method && filter.method !== "equals"
+                ? `[${filter.method}]`
+                : ""
+            }
+            =
+            ${filter?.value}`.replace(/\s/g, "");
+    }
+
+    // 2) SORTING
+    if (sortBy) {
+      if (filter) {
+        url += `&`;
+      }
+      url += `sort[${sortBy.field}]
+              =${sortBy.direction}
+      `.replace(/\s/g, "");
+    }
+
+    // 3) PAGINATION
+    if (page !== null) {
+      if (filter || sortBy) {
+        url += `&`;
+      }
+      url += `page=${page}&limit=${PAGE_SIZE}`;
+    }
+
+    // SENDING the REQUEST
+    const res = await axios.get<GetAllBookingsResType>(url);
+    // const res = await axios.get<GetAllBookingsResType>(`${URL}/bookings`);
+
+    return {
+      bookings: res.data.bookings,
+      length: res.data.length,
+      totalBookings: res.data.totalBookings,
+    };
   } catch (err) {
     console.log(err);
     throw new Error("Could not load the bookings");

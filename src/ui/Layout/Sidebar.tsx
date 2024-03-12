@@ -5,6 +5,7 @@ import MainNav from "../MainNav";
 import { useSidebar } from "../../contexts/sidebarContext";
 import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import Uploader from "../../data/Uploader";
 
 // const StyledSidebar = styled.aside`
 //   ${tw`border-red-400 border-r-8 bg-grey-0 row-[1/-1] py-[3.2rem] px-[2.4rem]`}
@@ -48,6 +49,8 @@ function Sidebar() {
 
         <Logo />
         <MainNav />
+
+        <Uploader />
       </StyledSidebar>
     );
   }

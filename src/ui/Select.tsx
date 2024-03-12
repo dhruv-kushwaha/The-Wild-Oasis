@@ -33,7 +33,9 @@ function Select({ value, selectOptions, onChange, ...props }: SelectProps) {
   return (
     <StyledSelect value={value} onChange={onChange} {...props}>
       {selectOptions.map((option) => (
-        <option value={option.value}>{option.label}</option>
+        <option value={option.value} key={option.value}>
+          {option.label}
+        </option>
       ))}
     </StyledSelect>
   );

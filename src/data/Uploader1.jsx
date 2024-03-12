@@ -100,7 +100,7 @@ async function createBookings() {
   if (error) console.log(error.message);
 }
 
-function Uploader() {
+function Uploader1() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function uploadAll() {
@@ -151,4 +151,4 @@ function Uploader() {
   );
 }
 
-export default Uploader;
+export default Uploader1;

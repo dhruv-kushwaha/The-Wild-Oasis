@@ -12,7 +12,7 @@ const StyledFilter = styled.div`
 `;
 
 interface FilterButtonProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 const FilterButton = styled.button<FilterButtonProps>`
@@ -20,7 +20,7 @@ const FilterButton = styled.button<FilterButtonProps>`
   border: none;
 
   ${(props) =>
-    props.active &&
+    props.$active &&
     css`
       background-color: var(--color-brand-600);
       color: var(--color-brand-50);
@@ -40,7 +40,7 @@ const FilterButton = styled.button<FilterButtonProps>`
 `;
 
 FilterButton.defaultProps = {
-  active: false,
+  $active: false,
 };
 
 interface FilterProps {
@@ -58,6 +58,7 @@ function Filter({ filterField, filterOptions }: FilterProps) {
 
   function handleClick(filterValue: string) {
     searchParams.set(filterField, filterValue);
+    searchParams.delete("page");
     setSearchParams(searchParams);
   }
 
@@ -65,8 +66,9 @@ function Filter({ filterField, filterOptions }: FilterProps) {
     <StyledFilter>
       {filterOptions.map((filterOption) => (
         <FilterButton
+          key={filterOption.value}
           onClick={() => handleClick(filterOption.value)}
-          active={currFilterValue === filterOption.value}
+          $active={currFilterValue === filterOption.value}
         >
           {filterOption.label}
         </FilterButton>

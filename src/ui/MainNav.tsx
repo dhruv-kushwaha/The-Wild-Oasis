@@ -8,6 +8,7 @@ import {
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import { memo } from "react";
 
 const NavList = styled.ul`
   display: flex;
@@ -54,7 +55,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-function MainNav() {
+const MainNav = memo(function MainNav() {
   return (
     <nav>
       <NavList>
@@ -95,6 +96,6 @@ function MainNav() {
       </NavList>
     </nav>
   );
-}
+});
 
 export default MainNav;
