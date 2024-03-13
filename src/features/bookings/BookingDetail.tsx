@@ -9,6 +9,9 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
+import { useBooking } from "./useBooking";
+import Spinner from "../../ui/Spinner";
+import { TFullBookingType } from "../../schema/bookingSchema";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -17,31 +20,35 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const booking = {};
-  const status = "checked-in";
+  const { booking, isLoading } = useBooking();
+  // const { status } = booking;
 
   const moveBack = useMoveBack();
 
   const statusToTagName = {
     unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+    checkedIn: "green",
+    checkedOut: "silver",
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #X</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+          <Heading as="h1">Booking #{booking?.id}</Heading>
+          <Tag type={statusToTagName[booking?.status ?? "unconfirmed"]}>
+            {booking?.status.replace("checked", "checked ")}
+          </Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
-      <BookingDataBox booking={booking} />
+      <BookingDataBox booking={booking as TFullBookingType} />
 
       <ButtonGroup>
-        <Button variation="secondary" onClick={moveBack}>
+        <Button $variation="secondary" onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>

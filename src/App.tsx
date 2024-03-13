@@ -15,6 +15,7 @@ import AppLayout from "./ui/Layout/AppLayout";
 import SidebarProvider from "./contexts/sidebarContext";
 import { Toaster } from "react-hot-toast";
 import tw from "twin.macro";
+import Booking from "./pages/Booking";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,13 +32,14 @@ function App() {
 
       <SidebarProvider>
         <GlobalStyles />
-
+        {/*NOTE: GENERAL RULE WE FOLLOW A page should not fetch data and should not have side effects */}
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/bookings" element={<Bookings />} />
+              <Route path="/bookings/:bookingId" element={<Booking />} />
               <Route path="/cabins" element={<Cabins />} />
               <Route path="/users" element={<NewUsers />} />
               <Route path="/settings" element={<Settings />} />
