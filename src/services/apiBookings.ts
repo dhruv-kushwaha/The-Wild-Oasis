@@ -148,28 +148,50 @@ export async function getBooking(id: number) {
 //   return data;
 // }
 
-// export async function updateBooking(id, obj) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .update(obj)
-//     .eq("id", id)
-//     .select()
-//     .single();
+interface CheckinBookingObjectType {
+  isPaid: boolean;
+  status: string;
+  hasBreakfast?: boolean;
+  extrasPrice?: number;
+  totalPrice?: number;
+}
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Booking could not be updated");
-//   }
-//   return data;
-// }
+export async function checkinBooking(
+  id: number,
+  obj: CheckinBookingObjectType,
+) {
+  try {
+    const res = await axios.patch<getBookingResType>(
+      `${URL}/bookings/${id}`,
+      obj,
+    );
 
-// export async function deleteBooking(id) {
-//   // REMEMBER RLS POLICIES
-//   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+    return res.data.booking;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Booking could not be checked in");
+  }
+}
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Booking could not be deleted");
-//   }
-//   return data;
-// }
+export async function checkoutBooking(id: number) {
+  try {
+    const res = await axios.patch<getBookingResType>(`${URL}/bookings/${id}`, {
+      status: "checkedOut",
+      isPaid: true,
+    });
+
+    return res.data.booking;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Booking could not be checked in");
+  }
+}
+
+export async function deleteBooking(id: number) {
+  try {
+    const res = await axios.delete(`${URL}/bookings/${id}`);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Booking could not be deleted");
+  }
+}

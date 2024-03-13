@@ -2,9 +2,9 @@ import styled, { css } from "styled-components";
 import tw from "twin.macro";
 
 const sizes = {
-  small: tw`text-center font-semibold uppercase text-[1.2rem] px-[0.4rem] py-[0.8rem]`,
-  medium: tw`font-medium text-[1.4rem] px-[1.2rem] py-[1.6rem]`,
-  large: tw`font-medium text-[1.6rem] px-[1.2rem] py-[2.4rem]`,
+  small: tw`text-center font-semibold uppercase text-[1.2rem] px-[0.8rem] py-[0.4rem]`,
+  medium: tw`font-medium text-[1.4rem] px-[1.6rem] py-[1.2rem]`,
+  large: tw`font-medium text-[1.6rem] px-[2.4rem] py-[1.2rem] `,
 };
 
 const variations = {

@@ -55,3 +55,9 @@ const FullBookingSchema = BasicBookingSchema.merge(
 export type TBookingType = z.infer<typeof BookingsSchema>;
 export type TBookingTypeArray = TBookingType[];
 export type TFullBookingType = z.infer<typeof FullBookingSchema>;
+
+export interface ExtraBreakfastType {
+  hasBreakfast: boolean;
+  extrasPrice: number;
+  totalPrice: number;
+}

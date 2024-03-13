@@ -38,7 +38,7 @@ const StyledToggle = styled.button`
 `;
 
 interface StyledListProps {
-  position: {
+  $position: {
     x: number;
     y: number;
   };
@@ -51,8 +51,8 @@ const StyledList = styled.ul<StyledListProps>`
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  right: ${(props) => props.$position.x}px;
+  top: ${(props) => props.$position.y}px;
 `;
 
 const StyledButton = styled.button`
@@ -186,7 +186,7 @@ function List({ id, children }: { id: number; children: ReactNode[] }) {
   return createPortal(
     <div ref={ref}>
       <StyledList
-        position={{
+        $position={{
           x: position.x,
           y: position.y,
         }}
@@ -202,10 +202,12 @@ function Button({
   children,
   icon,
   onClick,
+  disabled = false,
 }: {
   children: ReactNode;
   icon: JSX.Element;
   onClick?: () => void;
+  disabled?: boolean;
 }) {
   const { close } = useContext(MenusContext);
   function handleClick() {
@@ -215,7 +217,7 @@ function Button({
 
   return (
     <li>
-      <StyledButton onClick={handleClick}>
+      <StyledButton onClick={handleClick} disabled={disabled}>
         {icon}
         <span>{children}</span>
       </StyledButton>
