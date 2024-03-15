@@ -14,4 +14,5 @@ export const LoginSchema = FullUserSchema.pick({
   password: true,
 });
 
+export type TFullUserSchema = z.infer<typeof FullUserSchema>;
 export type TLoginType = z.infer<typeof LoginSchema>;

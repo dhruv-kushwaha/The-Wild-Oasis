@@ -1,6 +1,7 @@
 import axios from "axios";
 import getURL from "../utils/globalConstants";
-import { TLoginType } from "../schema/authSchema";
+import { TFullUserSchema, TLoginType } from "../schema/authSchema";
+import Cookies from "js-cookie";
 
 const URL = getURL();
 
@@ -22,10 +23,30 @@ export async function login({ email, password }: TLoginType) {
       },
     );
 
-    console.log(res);
+    console.log("USER REQUEST MADE");
     return res.data.user;
   } catch (error) {
     console.log(error);
     throw new Error("Login Unsuccessfull");
+  }
+}
+
+interface getUserResType {
+  status: string;
+  user: TFullUserSchema;
+}
+export async function getCurrentUser() {
+  try {
+    // const token = Cookies.get("jwt");
+    // if (!token) {
+    //   console.log("JWT Cookie not found");
+    //   return null;
+    // }
+    const res = await axios.get<getUserResType>(`${URL}/users/me`, {
+      withCredentials: true,
+    });
+    return res.data.user;
+  } catch (error) {
+    throw new Error("No current user found");
   }
 }

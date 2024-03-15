@@ -12,7 +12,9 @@ const URL: string = getURL();
 export async function getCabins() {
   try {
     const URL: string = getURL();
-    const response = await axios.get(`${URL}/cabins`);
+    const response = await axios.get(`${URL}/cabins`, {
+      withCredentials: true,
+    });
 
     const data: TCabinType[] = response.data.cabins;
     console.log(data);
@@ -55,6 +57,7 @@ export async function createCabin(newCabin: TCreateCabinType) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        withCredentials: true,
       },
     );
 
@@ -98,6 +101,7 @@ export async function updateCabinAPI(updatedCabin: UpdateCabinType) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        withCredentials: true,
       },
     );
 
@@ -111,7 +115,9 @@ export async function updateCabinAPI(updatedCabin: UpdateCabinType) {
 export async function deleteCabin(cabinId: number) {
   const URL = getURL();
   try {
-    const res = await axios.delete(`${URL}/cabins/${cabinId}`);
+    const res = await axios.delete(`${URL}/cabins/${cabinId}`, {
+      withCredentials: true,
+    });
 
     console.log(res);
     return res;
