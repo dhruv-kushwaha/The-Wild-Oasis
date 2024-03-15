@@ -50,3 +50,12 @@ export async function getCurrentUser() {
     throw new Error("No current user found");
   }
 }
+
+export function logout() {
+  try {
+    axios.get(`${URL}/users/logout`);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error Logging out");
+  }
+}

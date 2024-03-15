@@ -3,6 +3,7 @@ import tw from "twin.macro";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import { useSidebar } from "../../contexts/sidebarContext";
+import Logout from "../../features/authentication/Logout";
 
 const StyledHeader = styled.header`
   ${tw`
@@ -20,7 +21,7 @@ function Header() {
       <span className="lg:hidden" onClick={toggleSidebar}>
         <GiHamburgerMenu size={32} />
       </span>
-      Header
+      <Logout />
     </StyledHeader>
   );
 }
