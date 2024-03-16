@@ -14,5 +14,19 @@ export const LoginSchema = FullUserSchema.pick({
   password: true,
 });
 
+export const SignupSchema = FullUserSchema.pick({
+  email: true,
+  password: true,
+  name: true,
+})
+  .extend({
+    confirmPassword: z.string(),
+  })
+  .refine((val) => val.password === val.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
 export type TFullUserSchema = z.infer<typeof FullUserSchema>;
 export type TLoginType = z.infer<typeof LoginSchema>;
+export type TSignupType = z.infer<typeof SignupSchema>;
