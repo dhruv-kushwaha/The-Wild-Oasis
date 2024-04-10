@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import tw from "twin.macro";
 import {
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
@@ -19,12 +18,15 @@ const NavList = styled.ul`
 const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
-    ${tw`
-      px-[2.4rem] py-[1.2rem]
-      text-grey-600 font-medium
-      flex items-center gap-[1.2rem] 
-      transition duration-300
-    `}
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    color: var(--color-grey-600);
+    font-size: 1.6rem;
+    font-weight: 500;
+    padding: 1.2rem 2.4rem;
+    transition: all 0.3s;
   }
 
   /* This works because react-router places the active class on the active NavLink */
@@ -32,26 +34,23 @@ const StyledNavLink = styled(NavLink)`
   &:active,
   &.active:link,
   &.active:visited {
-    ${tw`rounded-sm text-grey-800 bg-grey-50`}/* bg-grey-50 */
+    color: var(--color-grey-800);
+    background-color: var(--color-grey-50);
+    border-radius: var(--border-radius-sm);
   }
 
   & svg {
-    ${tw`
-        w-[2.4rem] h-[2.4rem]
-        text-gray-400
-        transition duration-300
-
-    `}/* width: 2.4rem;
+    width: 2.4rem;
     height: 2.4rem;
     color: var(--color-grey-400);
-    transition: all 0.3s; */
+    transition: all 0.3s;
   }
 
   &:hover svg,
   &:active svg,
   &.active:link svg,
   &.active:visited svg {
-    ${tw` text-brand-600`}
+    color: var(--color-brand-600);
   }
 `;
 

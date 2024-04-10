@@ -1,14 +1,45 @@
 import axios from "axios";
 import getURL from "../utils/globalConstants";
-import { TFullUserSchema, TLoginType } from "../schema/authSchema";
-import Cookies from "js-cookie";
+import {
+  TFullUserSchema,
+  TLoginType,
+  TSignupType,
+  TUpdatePasswordType,
+  TUpdateUserType,
+} from "../schema/authSchema";
 
 const URL = getURL();
+
+interface SignupResType {
+  user: TFullUserSchema;
+  status: string;
+}
+export async function signup({
+  name,
+  email,
+  password,
+  confirmPassword,
+}: TSignupType) {
+  try {
+    const res = await axios.post<SignupResType>(`${URL}/users/signup`, {
+      name,
+      email,
+      password,
+      confirmPassword,
+      avatar: "",
+    });
+
+    return res.data.user;
+  } catch (error) {
+    console.log(error);
+    throw new Error("User could not be created");
+  }
+}
 
 interface loginResType {
   status: string;
   token: string;
-  user: TLoginType;
+  user: TFullUserSchema;
 }
 export async function login({ email, password }: TLoginType) {
   try {
@@ -51,11 +82,51 @@ export async function getCurrentUser() {
   }
 }
 
-export function logout() {
+export async function logout() {
   try {
-    axios.get(`${URL}/users/logout`);
+    await axios.get(`${URL}/users/logout`);
   } catch (error) {
     console.log(error);
     throw new Error("Error Logging out");
+  }
+}
+
+export async function updateUser(updatedUser: TUpdateUserType) {
+  try {
+    const formData = new FormData();
+
+    // for (const [key, value] of Object.entries(updatedUser)) {
+    //   if (value === undefined) {
+    //     continue;
+    //   }
+    //   formData.append(key, value);
+    // }
+    if (updatedUser.name) {
+      formData.append("name", updatedUser.name);
+    }
+
+    if (updatedUser.avatar instanceof File) {
+      formData.append("avatar", updatedUser.avatar);
+    }
+
+    const res = await axios.patch(`${URL}/users/me`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+    throw new Error("User data could not be updated");
+  }
+}
+
+export async function updatePassword(data: TUpdatePasswordType) {
+  try {
+    await axios.patch(`${URL}/users/updatePassword`, data);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Password could not be updated");
   }
 }

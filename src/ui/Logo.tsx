@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import tw from "twin.macro";
 
+/* ${tw`flex justify-center`} */
 const StyledLogo = styled.div`
-  ${tw`flex justify-center`}
+  display: flex;
+  justify-content: center;
 `;
 
 const Img = styled.img`
-  ${tw`w-auto h-[9.6rem]`}
+  width: auto;
+  height: 9.6rem;
 `;
 
 function Logo() {

@@ -14,7 +14,6 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/Layout/AppLayout";
 import SidebarProvider from "./contexts/sidebarContext";
 import { Toaster } from "react-hot-toast";
-import tw from "twin.macro";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";

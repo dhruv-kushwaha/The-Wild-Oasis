@@ -7,8 +7,8 @@ const StyledTable = styled.div`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
-  min-width: 650px;
-  /* overflow: hidden; */
+  min-width: 730px;
+  /* overflow: scroll; */
 `;
 
 interface CommonRowProps {

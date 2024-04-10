@@ -3,20 +3,25 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import { useSignup } from "./useSignup";
+import { TSignupType } from "../../schema/authSchema";
 
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
+  const { signup, isLoading } = useSignup();
   const {
     register,
     formState: { errors },
     getValues,
     handleSubmit,
+    reset,
   } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = function (data) {
-    console.log(data);
-    console.log(errors);
+    signup(data as TSignupType, {
+      onSettled: () => reset(),
+    });
   };
 
   return (
@@ -25,6 +30,7 @@ function SignupForm() {
         <Input
           type="text"
           id="name"
+          disabled={isLoading}
           {...register("name", { required: "This field is required" })}
         />
       </FormRow>
@@ -33,6 +39,7 @@ function SignupForm() {
         <Input
           type="email"
           id="email"
+          disabled={isLoading}
           {...register("email", {
             required: "This field is required",
 
@@ -51,6 +58,7 @@ function SignupForm() {
         <Input
           type="password"
           id="password"
+          disabled={isLoading}
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -62,12 +70,13 @@ function SignupForm() {
       </FormRow>
 
       <FormRow
-        label="Repeat password"
+        label="Confirm password"
         error={errors?.confirmPassword?.message as string}
       >
         <Input
           type="password"
           id="confirmPassword"
+          disabled={isLoading}
           {...register("confirmPassword", {
             required: "This field is required",
             validate: (value) =>
@@ -78,12 +87,12 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <div>
-          <Button $variation="secondary" type="reset">
+        <>
+          <Button $variation="secondary" disabled={isLoading} type="reset">
             Cancel
           </Button>
-          <Button>Create new user</Button>
-        </div>
+          <Button disabled={isLoading}>Create new user</Button>
+        </>
       </FormRow>
     </Form>
   );

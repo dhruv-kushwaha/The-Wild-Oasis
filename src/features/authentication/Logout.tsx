@@ -9,9 +9,11 @@ function Logout() {
   const queryClient = useQueryClient();
 
   function handleLogout() {
-    logout();
-    queryClient.removeQueries();
-    navigate("/login");
+    (async function () {
+      await logout();
+      queryClient.removeQueries();
+      navigate("/login");
+    })();
   }
 
   return (

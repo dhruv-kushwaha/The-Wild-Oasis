@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import tw from "twin.macro";
 
 const rotate = keyframes`
   to {
@@ -8,8 +7,12 @@ const rotate = keyframes`
 `;
 
 const Spinner = styled.div`
-  margin: 10rem auto;
+  // margin: 4.8rem auto;
 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% -50%);
   width: 6.4rem;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -18,9 +21,7 @@ const Spinner = styled.div`
       10px no-repeat,
     conic-gradient(#0000 30%, var(--color-brand-600));
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 10px), #000 0);
-  /* animation: ${rotate} 1.5s infinite linear; */
-
-  ${tw` animate-spin-slow`}
+  animation: ${rotate} 1.5s infinite linear;
 `;
 
 export default Spinner;
