@@ -3,7 +3,13 @@
 
 import axios from "axios";
 import getURL, { PAGE_SIZE } from "../utils/globalConstants";
-import { TBookingType, TFullBookingType } from "../schema/bookingSchema";
+import {
+  TBookingType,
+  TBookingsAfterDateType,
+  TFullBookingType,
+  TStaysAfterDateType,
+} from "../schema/bookingSchema";
+import { getToday } from "../utils/helpers";
 
 const URL = getURL();
 
@@ -30,10 +36,17 @@ export async function getAllBookings({
 }) {
   try {
     // BUILDING THE URL
+    let url: string = `${URL}/bookings?`;
+
+    // 0) LIMIT FIELDS
+    // url +=
+    //   `fields=id,createdAt,startDate,endDate,numNights,numGuests,status,totalPrice` +
+    //   `&fields[cabin]=name,id&` +
+    //   `&fields[guest]=fullName,email&`;
 
     // 1) FILTERING
     // For multiple filters create the filter as an Array of filter objects and loop over them and add them to the query string
-    let url: string = `${URL}/bookings?`;
+
     if (filter !== null) {
       url += `
             ${filter?.field}
@@ -110,6 +123,54 @@ export async function getBooking(id: number) {
 //   return data;
 // }
 
+// export async function getBookingsAfterDate(date: Date) {
+
+interface BookingsAfterDateResType {
+  status: string;
+  bookings: TBookingsAfterDateType[];
+}
+
+export async function getBookingsAfterDate(days: number) {
+  try {
+    const res = await axios.get<BookingsAfterDateResType>(
+      `${URL}/bookings/bookingsAfterDate`,
+      {
+        params: {
+          days,
+        },
+      },
+    );
+
+    return res.data.bookings;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Bookings could not be loaded!");
+  }
+}
+
+interface StaysAfterDateResType {
+  status: string;
+  stays: TStaysAfterDateType[];
+}
+
+export async function getStaysAfterDate(days: number) {
+  try {
+    const res = await axios.get<StaysAfterDateResType>(
+      `${URL}/bookings/staysAfterDate`,
+      {
+        params: {
+          days,
+        },
+      },
+    );
+
+    return res.data.stays;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Stays could not be loaded!");
+  }
+}
+
 // // Returns all STAYS that are were created after the given date
 // export async function getStaysAfterDate(date) {
 //   const { data, error } = await supabase
@@ -147,6 +208,19 @@ export async function getBooking(id: number) {
 //   }
 //   return data;
 // }
+
+export async function getStaysTodayActivity() {
+  try {
+    const res = await axios.get<StaysAfterDateResType>(
+      `${URL}/bookings/staysToday`,
+    );
+
+    return res.data.stays;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Bookings could not get loaded");
+  }
+}
 
 interface CheckinBookingObjectType {
   isPaid: boolean;
