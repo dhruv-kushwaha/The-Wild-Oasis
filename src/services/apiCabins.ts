@@ -17,7 +17,7 @@ export async function getCabins() {
     });
 
     const data: TCabinType[] = response.data.cabins;
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     throw new Error("Cabins could not be loaded");

@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Uploader from "../../data/Uploader";
 
 interface StyledSidebarProps {
-  sidebarOpen: boolean;
+  $isopen: string;
 }
 
 /* ${tw`w-[28rem] h-[100vh] py-[3.2rem] px-[2.4rem] flex flex-col gap-[3.2rem] row-[2/-1] fixed bg-grey-0 border-grey-100 border-r-[1px] overflow-y-auto z-50 lg:row-[1/-1] lg:w-[26rem] lg:static`} */
@@ -31,7 +31,7 @@ const StyledSidebar = styled.aside<StyledSidebarProps>`
   transition: transform 300ms ease-in-out;
 
   ${(props) =>
-    props.sidebarOpen
+    props.$isopen === "true"
       ? css`
           transform: translateX(0);
         `
@@ -59,7 +59,7 @@ function Sidebar() {
   const { isOpen, toggleSidebar } = useSidebar();
 
   return (
-    <StyledSidebar sidebarOpen={isOpen}>
+    <StyledSidebar $isopen={isOpen.toString()}>
       {/* {window.innerWidth < 1024 && (
        
       )} */}

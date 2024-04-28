@@ -52,9 +52,19 @@ const FullBookingSchema = BasicBookingSchema.merge(
   }),
 );
 
+const BookingsAfterDateSchema = z.object({
+  createdAt: z.string(),
+  totalPrice: z.number(),
+  extrasPrice: z.number(),
+});
+
+const StaysAfterDateSchema = FullBookingSchema;
+
 export type TBookingType = z.infer<typeof BookingsSchema>;
 export type TBookingTypeArray = TBookingType[];
 export type TFullBookingType = z.infer<typeof FullBookingSchema>;
+export type TBookingsAfterDateType = z.infer<typeof BookingsAfterDateSchema>;
+export type TStaysAfterDateType = z.infer<typeof StaysAfterDateSchema>;
 
 export interface ExtraBreakfastType {
   hasBreakfast: boolean;
