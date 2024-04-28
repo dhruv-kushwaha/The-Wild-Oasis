@@ -69,8 +69,6 @@ function Sidebar() {
 
       <Logo />
       <MainNav />
-
-      <Uploader />
     </StyledSidebar>
   );
 }
