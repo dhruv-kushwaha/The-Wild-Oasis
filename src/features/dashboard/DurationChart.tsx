@@ -192,7 +192,7 @@ function DurationChart({ confirmedStays }: DurationChartProps) {
           <Legend
             verticalAlign="middle"
             align="right"
-            width="30%"
+            width={"30%" as unknown as number}
             layout="vertical"
             iconSize={15}
             iconType="circle"
