@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# The Wild Oasis
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an internal cabin management dashboard for The Wild Oasis cabin chain. It empowers receptionists with a user-friendly interface to streamline cabin, guest, and booking management.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
+- TypeScript
+- React
+- Styled Components
 
-## Expanding the ESLint configuration
+### Backend
+- Node.js
+- Express
+- PostgreSQL (Prisma ORM)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Storage
+- Supabase Storage (Multer)
 
-- Configure the top-level `parserOptions` property like this:
+### Authentication
+- JWT
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Features
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **Modern, Responsive, and Visually Appealing UI:** Built with React and Styled Components, the dashboard provides a user-friendly experience with a dark mode feature for improved visual comfort.
+- **Streamlined Cabin, Guest, and Booking Management:** Receptionists can efficiently manage cabins, guest information, and bookings.
+- **Secure User Access Control:** JWT authentication ensures secure access to the dashboard.
+- **Efficient Data Storage:** A PostgreSQL database with Prisma ORM provides efficient data storage and retrieval.
+- **Secure Cabin Image Management:** Cabin images are securely stored using Supabase Storage with Multer integration.
+- **Enhanced User Experience:** Features like client-side and server-side filtering, pagination, sorting, and interactive charts for data visualization further enhance the user experience.
+
+
