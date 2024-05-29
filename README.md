@@ -20,7 +20,7 @@ This project is an internal cabin management dashboard for The Wild Oasis cabin 
 ### Authentication
 - JWT
 
-Backend => https://github.com/dhruv-kushwaha/the-wild-oasis-backend(https://github.com/dhruv-kushwaha/the-wild-oasis-backend)
+Backend => https://github.com/dhruv-kushwaha/the-wild-oasis-backend
 
 ## Features
 
