@@ -20,6 +20,8 @@ This project is an internal cabin management dashboard for The Wild Oasis cabin 
 ### Authentication
 - JWT
 
+Backend => https://github.com/dhruv-kushwaha/the-wild-oasis-backend(https://github.com/dhruv-kushwaha/the-wild-oasis-backend)
+
 ## Features
 
 - **Modern, Responsive, and Visually Appealing UI:** Built with React and Styled Components, the dashboard provides a user-friendly experience with a dark mode feature for improved visual comfort.
